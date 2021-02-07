@@ -1,0 +1,10 @@
+{
+  "name": "ketoacidosis-calculator",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "9.1.0"
+  }
+}

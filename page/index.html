@@ -1,0 +1,193 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Ketoazidose Rechner</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async>
+    </script>
+</head>
+
+<body>
+    <div id="header">
+        <h1 class="display-inline-block">Ketoazidose Rechner</h1>
+
+        <div class="display-inline-block" id="patient-info">
+            <p class="display-inline-block">Name</p>
+            <input type="text" id="name" class="display-inline-block field">
+
+            <div class="display-inline-block placeholder"></div>
+            <p class="display-inline-block">Datum</p>
+            <input type="date" id="date" class="display-inline-block field">
+
+            <div class="display-inline-block placeholder"></div>
+            <button id="print" class="display-inline-block field" onclick="window.print()">Drucken</button>
+        </div>
+    </div>
+
+    <div class="display-container">
+        <span class="display-inline-block border bubble">
+            <h2>Diagnose einer DKA</h2>
+            <ul>
+                <li>Blutzucker &gt; 250 mg/dl</li>
+                <li>arterieller pH &lt; 7.35 oder venöser pH &lt; 7.3</li>
+                <li>Serum-Bikarbonat &lt; 15 mmol/l</li>
+                <li>Ketonurie oder Ketonämie</li>
+            </ul>
+            <p>
+                <b>Grad der Dehydratation wird bestimmt von pH-Wert</b><br>
+                &GreaterEqual;7.1 MILDE oder MITTELSCHWERE DKA = 5%<br>
+                &lt;7.1 SCHWERE DKA = 10% Dehydratation
+            </p>
+        </span>
+        <span class="display-inline-block border bubble">
+            <h2>Größte Gefahr = Hirnödem</h2>
+            <p>Ziel: langsame Korrektur über 48 Stunden</p>
+            <ul>
+                <li> Kopfschmerzen, Bradykardie, Irritabilität, Hirndruckzeichen, Somnolenz</li>
+                <li> 5 ml/kg Natriumchlorid 2,7% oder Mannit 0,5 – 1 g/kg verabreichen</li>
+                <li> Flüssigkeit auf die Hälfte reduzieren</li>
+            </ul>
+        </span>
+        <span class="display-inline-block border bubble">
+            <h2>Notfallmaßnahmen</h2>
+            <ol>
+                <li>Atemwege: Intubation bei Koma, Nasensonde bei Koma oder Erbrechen</li>
+                <li>Atmung: 100% Sauerstoff über Maske</li>
+                <li>Kreislauf: IV Zugang, Blutabnahme</li>
+                <li>Bei Schock, 10 ml/kg 0.9% NaCl Bolus. Weitere Bolusgaben erwägen</li>
+                <li>Diagnose der DKA bestätigen</li>
+                <li>Untersuchungen: Blutzucker, Na, Cl, Astrup, NFP</li>
+            </ol>
+        </span>
+        <span class="display-inline-block border bubble">
+            <h2>Monitoring</h2>
+            <ul>
+                <li>Bilanz (Einfuhr/Ausfuhr)</li>
+                <li>Stündlich Blutdruck und Vitalparameter</li>
+                <li>Stündlich Blutzucker</li>
+                <li>Blut Keton (1-2 stdl. wenn möglich)</li>
+                <li>Astrup, Plasma Na, K, Cl (2 stdl.)</li>
+                <li>Gewicht 2 x tgl.</li>
+                <li>ISIV bei Koma, pH &lt; 7.1, &lt; 1 Jahr</li>
+            </ul>
+        </span>
+    </div>
+
+    <div class="display-container">
+        <span class="display-inline-block border bubble">
+            <h2>Flüssigkeitstherapie</h2>
+            <table>
+                <tr>
+                    <td>Gewicht [kg]</td>
+                    <td>
+                        <input type="number" id="weight" class="field" min="0" step="0.1" value="0"
+                            onchange="setWeight(this.value)">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Größe [cm]</td>
+                    <td>
+                        <input type="number" id="size" class="field" min="0" step="0.1" value="0"
+                            onchange="setSize(this.value)">
+                    </td>
+                </tr>
+                <tr class="table-space"></tr>
+                <tr>
+                    <td>KOF</td>
+                    <td><input type="number" id="kof-output" class="field border output" step="0.01" readonly></td>
+                    <td>m&sup2;</td>
+                </tr>
+                <tr>
+                    <td>Flüssigkeitsgabe</td>
+                    <td><input type="number" id="hourly-output" class="field border output" step="0.1" readonly></td>
+                    <td>ml/h</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="number" id="daily-output" class="field border output" step="0.1" readonly></td>
+                    <td>ml/d</td>
+                </tr>
+            </table>
+
+            <br>
+            <p>$$KOF(m^2) = {\sqrt{Gewicht(kg) * Größe(cm)} \over 3600}$$</p>
+            <p>$$Flüssigkeitsgabe(ml / h) = {3000ml*KOF(m^2) \over 24h}$$</p>
+        </span>
+
+        <span class="display-inline-block border bubble">
+            <h2>Insulin</h2>
+            <table>
+                <tr>
+                    <td>Insulin [IE/kg/h]</td>
+                    <td>
+                        <select id="insulin" class="field" onchange="setInsulin(this.value)">
+                            <option value="0" selected disabled hidden>Wählen Sie</option>
+                            <option value="0.05">0.05</option>
+                            <option value="0.1">0.1</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="table-space"></tr>
+                <tr>
+                    <td>Insulininfusion</td>
+                    <td><input type="number" id="insulin-output" class="field border output" step="0.1" readonly></td>
+                    <td>ml/h</td>
+                </tr>
+            </table>
+
+            <br>
+            <ul>
+                <li> 1 h nach Flüßigkeitsgabe starten.</li>
+                <li> 0,05 bis 0,1 IE/kg/h</li>
+                <li>
+                    Die Insulinrate NICHT VERRINGERN, bis sich die Ketoazidose bessert.<br>
+                    Wenn die Glukose sinkt, Glukose zu IV-Flüssigkeiten hinzufügen.
+                </li>
+                <li>50 Einheiten Insulin zu 50 ml NaCl 0,9%</li>
+                <li>Konzentration 1 IE/ml, 0.1 u/kg/h = 0.1 ml/kg/h</li>
+            </ul>
+        </span>
+
+        <span class="display-inline-block border bubble">
+            <h2>Korrigiertes Natrium</h2>
+            <table>
+                <tr>
+                    <td></td>
+                    <td>Probe 1</td>
+                    <td>Probe 2</td>
+                </tr>
+                <tr>
+                    <td>Glukose [mg/dl]</td>
+                    <td><input type="number" id="glucose-1" class="field" min="0" value="0"
+                            onchange="setGlucose(this.value, 0)"></td>
+                    <td><input type="number" id="glucose-2" class="field" min="0" value="0"
+                            onchange="setGlucose(this.value, 1)"></td>
+                </tr>
+                <tr>
+                    <td>Plasma Natrium [mmol/L]</td>
+                    <td><input type="number" id="plasma-1" class="field" min="0" value="0"
+                            onchange="setPlasma(this.value, 0)"></td>
+                    <td><input type="number" id="plasma-2" class="field" min="0" value="0"
+                            onchange="setPlasma(this.value, 1)"></td>
+                </tr>
+                <tr class="table-space"></tr>
+                <tr>
+                    <td>Korrigiertes Natrium</td>
+                    <td><input type="number" id="natrium-1" class="display-inline-block field border output" step="0.1"
+                            readonly></td>
+                    <td><input type="number" id="natrium-2" class="display-inline-block field border output" step="0.1"
+                            readonly></td>
+                    <td>IE</td>
+                </tr>
+            </table>
+            <p>
+                $$Korr. Na = Na + 2*{BZ - 100 \over 100}$$
+            </p>
+        </span>
+    </div>
+</body>
+
+</html>
