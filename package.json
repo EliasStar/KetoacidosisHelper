@@ -1,10 +1,20 @@
 {
-  "name": "ketoacidosis-calculator",
+  "name": "ketoacidosis-helper",
+  "description": "calculates various dosages of ketoacidosis treatments",
+  "version": "1.0.0",
+  "author": "Elias*",
+  "license": "GPL-3.0-only",
+  "keywords": [
+    "school-project",
+    "website",
+    "electron",
+    "medical"
+  ],
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
   "dependencies": {
-    "electron": "9.1.0"
+    "electron": "^11.2.3"
   }
 }

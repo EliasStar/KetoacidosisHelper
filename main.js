@@ -1,19 +1,14 @@
-const {
-  app,
-  BrowserWindow
-} = require('electron');
+const { app, BrowserWindow } = require('electron')
 
-app.on('ready', function () {
+app.on('ready', () => {
   var mainWindow = new BrowserWindow({
     minHeight: 925,
     minWidth: 1300,
     center: true
-  });
+  })
 
-  mainWindow.setMenu(null);
-  mainWindow.loadFile('page/index.html');
+  mainWindow.setMenu(null)
+  mainWindow.loadFile('docs/index.html')
 
-  mainWindow.on('window-all-closed', function () {
-    app.quit()
-  });
-});
+  mainWindow.on('window-all-closed', () => app.quit())
+})
